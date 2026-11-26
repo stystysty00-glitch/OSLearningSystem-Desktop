@@ -1,0 +1,782 @@
+﻿<Window x:Class="OSLearningSystem.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OSLearningSystem"
+        mc:Ignorable="d"
+        Title="Система інтерактивного вивчення будови та принципів роботи ОС — Microsoft Visual Studio"
+        Height="820" Width="1240"
+        MinHeight="700" MinWidth="1050"
+        WindowStartupLocation="CenterScreen"
+        Background="#F1F5F9"
+        FontFamily="Segoe UI">
+
+    <Window.Resources>
+        <!-- Modern Palette -->
+        <SolidColorBrush x:Key="NavyDark" Color="#0F172A"/>
+        <SolidColorBrush x:Key="NavyLight" Color="#1E293B"/>
+        <SolidColorBrush x:Key="PrimaryBlue" Color="#2563EB"/>
+        <SolidColorBrush x:Key="PrimaryHover" Color="#1D4ED8"/>
+        <SolidColorBrush x:Key="AccentEmerald" Color="#059669"/>
+        <SolidColorBrush x:Key="AccentAmber" Color="#D97706"/>
+        <SolidColorBrush x:Key="CardBg" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BorderBrushLight" Color="#CBD5E1"/>
+        <SolidColorBrush x:Key="TextMain" Color="#0F172A"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#64748B"/>
+
+        <!-- Base Button Style -->
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBlue}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource PrimaryHover}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Secondary Button Style -->
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="Background" Value="#E2E8F0"/>
+            <Setter Property="Foreground" Value="#1E293B"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="BorderBrush" Value="#CBD5E1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#CBD5E1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Success Button Style -->
+        <Style x:Key="SuccessButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource AccentEmerald}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="14,8"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Card Container Style -->
+        <Style x:Key="CardBorder" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="14"/>
+        </Style>
+
+        <!-- Tab Item Style -->
+        <Style TargetType="TabItem">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="Foreground" Value="#475569"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="TabBorder" Background="Transparent" BorderThickness="0,0,0,3" BorderBrush="Transparent" Padding="{TemplateBinding Padding}" Margin="0,0,4,0">
+                            <ContentPresenter ContentSource="Header" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TabBorder" Property="BorderBrush" Value="{StaticResource PrimaryBlue}"/>
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryBlue}"/>
+                                <Setter TargetName="TabBorder" Property="Background" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource PrimaryBlue}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <!-- Top App Bar -->
+            <RowDefinition Height="Auto"/>
+            <!-- Main Content Tabs -->
+            <RowDefinition Height="*"/>
+            <!-- Status Bar -->
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Top App Bar -->
+        <Border Grid.Row="0" Background="{StaticResource NavyDark}" Padding="20,12">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border Background="{StaticResource PrimaryBlue}" CornerRadius="4" Padding="6,2" Margin="0,0,10,0">
+                            <TextBlock Text="КУРСОВА РОБОТА" FontWeight="Bold" FontSize="10" Foreground="White"/>
+                        </Border>
+                        <TextBlock Text="Система інтерактивного вивчення будови та принципів роботи ОС" FontWeight="Bold" FontSize="16" Foreground="White"/>
+                    </StackPanel>
+                    <TextBlock Text="Навчальний програмний комплекс для дослідження підсистем ядра: CPU, Memory, Deadlocks, Quiz | Visual Studio 2022 / C# .NET" FontSize="11" Foreground="#94A3B8" Margin="0,3,0,0"/>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Background="{StaticResource NavyLight}" CornerRadius="6" Padding="12,6" Margin="0,0,10,0" BorderBrush="#334155" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Студент: " Foreground="#94A3B8" FontSize="11"/>
+                            <TextBlock Text="Стунженас В. В. (П-42)" FontWeight="Bold" Foreground="#38BDF8" FontSize="11"/>
+                        </StackPanel>
+                    </Border>
+                    <Border Background="{StaticResource NavyLight}" CornerRadius="6" Padding="12,6" BorderBrush="#334155" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Керівник: " Foreground="#94A3B8" FontSize="11"/>
+                            <TextBlock Text="Висоцька О. І." FontWeight="Bold" Foreground="#34D399" FontSize="11"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Main Tab Control -->
+        <TabControl Grid.Row="1" Background="#F1F5F9" BorderThickness="0" Margin="14,10,14,6">
+
+            <!-- TAB 0: HOME / DASHBOARD -->
+            <TabItem Header="🏠 Головна сторінка" IsSelected="True">
+                <Grid Margin="10,12,10,8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Hero Banner -->
+                    <Border Grid.Row="0" Background="{StaticResource NavyDark}" CornerRadius="10" Padding="20,16" Margin="0,0,0,14">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <Border Background="{StaticResource PrimaryBlue}" CornerRadius="4" Padding="8,2" HorizontalAlignment="Left" Margin="0,0,0,6">
+                                    <TextBlock Text="НАВЧАЛЬНИЙ ПРОГРАМНИЙ КОМПЛЕКС КУРСОВОЇ РОБОТИ" FontWeight="Bold" FontSize="10.5" Foreground="White"/>
+                                </Border>
+                                <TextBlock Text="Система інтерактивного вивчення будови та принципів роботи ОС" FontWeight="Bold" FontSize="19" Foreground="White" Margin="0,0,0,4"/>
+                                <TextBlock Text="Автономний Windows-застосунок у Microsoft Visual Studio 2022. Забезпечує практичне моделювання, візуалізацію та верифікацію ключових алгоритмів ядра операційних систем." FontSize="12" Foreground="#CBD5E1" TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="16,0,0,0">
+                                <Border Background="#1E293B" CornerRadius="8" Padding="12,8" BorderBrush="#334155" BorderThickness="1">
+                                    <StackPanel>
+                                        <TextBlock Text="Середовище: Visual Studio 2022" FontSize="11" Foreground="#38BDF8" FontWeight="SemiBold"/>
+                                        <TextBlock Text="Платформа: .NET 10 | C# 12 | WPF" FontSize="11" Foreground="#94A3B8" Margin="0,2,0,0"/>
+                                        <TextBlock Text="Спеціальність: 121 «Інженерія ПЗ»" FontSize="11" Foreground="#34D399" Margin="0,2,0,0"/>
+                                    </StackPanel>
+                                </Border>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- 4 Subsystem Cards -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Card 1: CPU -->
+                        <Border Grid.Row="0" Grid.Column="0" Style="{StaticResource CardBorder}" Margin="0,0,6,6">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                                    <Border Background="#DBEAFE" CornerRadius="6" Width="32" Height="32" Margin="0,0,10,0">
+                                        <TextBlock Text="🖥️" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="1. Диспетчеризація процесора (CPU)" FontWeight="Bold" FontSize="13" Foreground="{StaticResource PrimaryBlue}"/>
+                                        <TextBlock Text="5 алгоритмів короткострокового планувальника" FontSize="10.5" Foreground="{StaticResource TextMuted}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <TextBlock Text="Моделювання алгоритмів FCFS, SJF (невитісняючий), SRTF (витісняючий), Round Robin (квант часу q) та Priority. Побудова інтерактивної діаграми Ганта, розрахунок Completion Time (CT), Turnaround Time (TAT), Waiting Time (WT) та завантаження CPU." FontSize="11.5" Foreground="{StaticResource TextMain}" TextWrapping="Wrap" LineHeight="17"/>
+                            </DockPanel>
+                        </Border>
+
+                        <!-- Card 2: Memory -->
+                        <Border Grid.Row="0" Grid.Column="1" Style="{StaticResource CardBorder}" Margin="6,0,0,6">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                                    <Border Background="#D1FAE5" CornerRadius="6" Width="32" Height="32" Margin="0,0,10,0">
+                                        <TextBlock Text="💾" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="2. Керування пам'яттю (Memory)" FontWeight="Bold" FontSize="13" Foreground="{StaticResource AccentEmerald}"/>
+                                        <TextBlock Text="Розподіл блоків та сторінковий обмін" FontSize="10.5" Foreground="{StaticResource TextMuted}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <TextBlock Text="Візуалізація фізичного простору RAM (1024 КБ). Дослідження евристик розміщення First Fit, Best Fit, Worst Fit. Аналіз внутрішньої та зовнішньої фрагментації, коалесценція блоків. Моделювання заміщення сторінок віртуальної пам'яті (FIFO, LRU) з підрахунком Page Faults." FontSize="11.5" Foreground="{StaticResource TextMain}" TextWrapping="Wrap" LineHeight="17"/>
+                            </DockPanel>
+                        </Border>
+
+                        <!-- Card 3: Deadlocks -->
+                        <Border Grid.Row="1" Grid.Column="0" Style="{StaticResource CardBorder}" Margin="0,6,6,0">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                                    <Border Background="#FEF3C7" CornerRadius="6" Width="32" Height="32" Margin="0,0,10,0">
+                                        <TextBlock Text="🔒" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="3. Взаємні блокування (Deadlocks)" FontWeight="Bold" FontSize="13" Foreground="{StaticResource AccentAmber}"/>
+                                        <TextBlock Text="Алгоритм Банкіра Дейкстри та умови Коффмана" FontSize="10.5" Foreground="{StaticResource TextMuted}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <TextBlock Text="Аналіз 4 умов Коффмана. Моделювання багаторесурсних систем із векторами Available та матрицями Allocation, Max, Need. Покрокова перевірка умови безпечності Need[i,j] &lt;= Work[j] та знаходження безпечної послідовності Safe Sequence." FontSize="11.5" Foreground="{StaticResource TextMain}" TextWrapping="Wrap" LineHeight="17"/>
+                            </DockPanel>
+                        </Border>
+
+                        <!-- Card 4: Quiz -->
+                        <Border Grid.Row="1" Grid.Column="1" Style="{StaticResource CardBorder}" Margin="6,6,0,0">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,6">
+                                    <Border Background="#EDE9FE" CornerRadius="6" Width="32" Height="32" Margin="0,0,10,0">
+                                        <TextBlock Text="📝" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="4. Комп'ютерний контроль знань (Quiz)" FontWeight="Bold" FontSize="13" Foreground="#7C3AED"/>
+                                        <TextBlock Text="Автоматичне оцінювання за шкалою ECTS" FontSize="10.5" Foreground="{StaticResource TextMuted}"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <TextBlock Text="Модуль комп'ютерного тестування з банком питань з усіх тем операційних систем. Миттєва перевірка знань, автоматичне виставлення підсумкової оцінки за європейською шкалою ECTS (A-F) та методичні пояснення відповідей." FontSize="11.5" Foreground="{StaticResource TextMain}" TextWrapping="Wrap" LineHeight="17"/>
+                            </DockPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- Bottom Nav Helpers -->
+                    <Border Grid.Row="2" Style="{StaticResource CardBorder}" Margin="0,10,0,0" Background="#F8FAFC">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Text="💡 Для дослідження конкретної підсистеми або проходження тесту оберіть відповідну вкладку у верхньому меню." FontSize="11.5" Foreground="{StaticResource TextMuted}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 1: CPU SCHEDULING -->
+            <TabItem Header="🖥️ 1. Планування процесора (CPU)">
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Controls Card -->
+                    <Border Grid.Row="0" Style="{StaticResource CardBorder}" Margin="0,0,0,10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="220"/>
+                                <ColumnDefinition Width="180"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="0,0,14,0">
+                                <TextBlock Text="Алгоритм планування:" FontWeight="SemiBold" FontSize="12" Foreground="{StaticResource TextMain}" Margin="0,0,0,4"/>
+                                <ComboBox x:Name="CbCpuAlgorithm" Height="30" SelectedIndex="3" SelectionChanged="OnCpuAlgorithmChanged">
+                                    <ComboBoxItem Content="FCFS (First-Come, First-Served)"/>
+                                    <ComboBoxItem Content="SJF (Shortest Job First, невитісн.)"/>
+                                    <ComboBoxItem Content="SRTF (SJF Preemptive, витісн.)"/>
+                                    <ComboBoxItem Content="Round Robin (Квантування часу)"/>
+                                    <ComboBoxItem Content="Пріоритетне планування"/>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" x:Name="PanelQuantum" Margin="0,0,14,0">
+                                <TextBlock Text="Квант часу q (тактив):" FontWeight="SemiBold" FontSize="12" Foreground="{StaticResource TextMain}" Margin="0,0,0,4"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Slider x:Name="SliderQuantum" Minimum="1" Maximum="8" Value="2" TickFrequency="1" IsSnapToTickEnabled="True" VerticalAlignment="Center" ValueChanged="OnQuantumChanged"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding ElementName=SliderQuantum, Path=Value, StringFormat='{}{0}'}" FontWeight="Bold" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{StaticResource PrimaryBlue}"/>
+                                </Grid>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                <TextBlock Text="Опис алгоритму:" FontWeight="Bold" FontSize="11" Foreground="{StaticResource PrimaryBlue}"/>
+                                <TextBlock x:Name="TxtAlgoDesc" Text="Round Robin: процеси виконуються почергово з фіксованим квантом часу q. Запобігає голодуванню." FontSize="11" Foreground="{StaticResource TextMuted}" TextWrapping="Wrap"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Content="🔄 Завантажити типовий приклад" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="OnLoadTypicalProcesses"/>
+                                <Button Content="➕ Додати процес" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="OnAddProcess"/>
+                                <Button Content="▶️ Розрахувати та побудувати діаграму Ганта" Style="{StaticResource SuccessButton}" Click="OnRunCpuSimulation"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Tables & Visualization Area -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="480"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Input Processes Table -->
+                        <Border Grid.Column="0" Style="{StaticResource CardBorder}" Margin="0,0,10,0">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Top" Text="Черга процесів (Вхідні параметри):" FontWeight="Bold" FontSize="13" Foreground="{StaticResource TextMain}" Margin="0,0,0,8"/>
+                                <DataGrid x:Name="GridProcesses" AutoGenerateColumns="False" CanUserAddRows="False" Background="White" RowHeaderWidth="0" GridLinesVisibility="Horizontal" BorderBrush="#E2E8F0">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Процес" Binding="{Binding Name}" FontWeight="Bold" Width="75"/>
+                                        <DataGridTextColumn Header="Прибуття (AT)" Binding="{Binding ArrivalTime}" Width="100"/>
+                                        <DataGridTextColumn Header="Тривалість (BT)" Binding="{Binding BurstTime}" Width="110"/>
+                                        <DataGridTextColumn Header="Пріоритет" Binding="{Binding Priority}" Width="90"/>
+                                        <DataGridTemplateColumn Header="Колір" Width="60">
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Border Width="20" Height="20" Background="{Binding Color}" CornerRadius="3" BorderBrush="#94A3B8" BorderThickness="1"/>
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                        </Border>
+
+                        <!-- Right Area: Gantt Chart & Result Metrics -->
+                        <Grid Grid.Column="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="180"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Gantt Chart Card -->
+                            <Border Grid.Row="0" Style="{StaticResource CardBorder}" Margin="0,0,0,10">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top" Text="Інтерактивна часова діаграма Ганта (Gantt Chart):" FontWeight="Bold" FontSize="13" Foreground="{StaticResource TextMain}" Margin="0,0,0,6"/>
+                                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                                        <StackPanel x:Name="GanttContainer" Orientation="Vertical" Margin="0,4,0,0">
+                                            <!-- Blocks row -->
+                                            <Canvas x:Name="GanttCanvas" Height="50" Background="#F8FAFC"/>
+                                            <!-- Time Axis -->
+                                            <Canvas x:Name="GanttAxisCanvas" Height="30" Background="#F1F5F9" Margin="0,2,0,0"/>
+                                        </StackPanel>
+                                    </ScrollViewer>
+                                </DockPanel>
+                            </Border>
+
+                            <!-- Results Table -->
+                            <Border Grid.Row="1" Style="{StaticResource CardBorder}">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top" Text="Аналітичні результати виконання алгоритму:" FontWeight="Bold" FontSize="13" Foreground="{StaticResource TextMain}" Margin="0,0,0,8"/>
+                                    <DataGrid x:Name="GridResults" AutoGenerateColumns="False" IsReadOnly="True" Background="White" RowHeaderWidth="0" GridLinesVisibility="Horizontal" BorderBrush="#E2E8F0">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Процес" Binding="{Binding Name}" FontWeight="Bold" Width="75"/>
+                                            <DataGridTextColumn Header="Completion Time (CT)" Binding="{Binding CompletionTime}" Width="150"/>
+                                            <DataGridTextColumn Header="Turnaround Time (TAT)" Binding="{Binding TurnaroundTime}" Width="150"/>
+                                            <DataGridTextColumn Header="Waiting Time (WT)" Binding="{Binding WaitingTime}" Width="140"/>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </DockPanel>
+                            </Border>
+                        </Grid>
+                    </Grid>
+
+                    <!-- Summary Stats Footer -->
+                    <Border Grid.Row="2" Style="{StaticResource CardBorder}" Margin="0,10,0,0" Background="#F8FAFC">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" HorizontalAlignment="Center">
+                                <TextBlock Text="Середній час очікування (Avg WT):" FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock x:Name="TxtAvgWT" Text="4.75 такти" FontWeight="Bold" FontSize="18" Foreground="{StaticResource PrimaryBlue}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" HorizontalAlignment="Center">
+                                <TextBlock Text="Середній час обороту (Avg TAT):" FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock x:Name="TxtAvgTAT" Text="9.75 тактів" FontWeight="Bold" FontSize="18" Foreground="{StaticResource AccentEmerald}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" HorizontalAlignment="Center">
+                                <TextBlock Text="Загальний час виконання (Total Time):" FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock x:Name="TxtTotalTime" Text="20 тактів" FontWeight="Bold" FontSize="18" Foreground="{StaticResource NavyDark}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3" HorizontalAlignment="Center">
+                                <TextBlock Text="Завантаження CPU (Utilization):" FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                                <TextBlock x:Name="TxtCpuUtil" Text="100.0 %" FontWeight="Bold" FontSize="18" Foreground="{StaticResource AccentAmber}"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 2: MEMORY MANAGEMENT -->
+            <TabItem Header="💾 2. Керування пам'яттю (Memory)">
+                <TabControl Background="White" BorderThickness="1" BorderBrush="#E2E8F0" Margin="0,10,0,0">
+                    <!-- SUBTAB 2.1: DYNAMIC ALLOCATION -->
+                    <TabItem Header="🔹 2.1. Динамічний розподіл (First/Best/Worst Fit)">
+                        <Grid Margin="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="120"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- Allocation Form -->
+                            <Border Grid.Row="0" Style="{StaticResource CardBorder}" Margin="0,0,0,10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="200"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="150"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Margin="0,0,10,0">
+                                        <TextBlock Text="Евристика розміщення:" FontWeight="SemiBold" FontSize="12" Margin="0,0,0,4"/>
+                                        <ComboBox x:Name="CbMemAlgo" Height="28" SelectedIndex="0">
+                                            <ComboBoxItem Content="First Fit (Перший придатний)"/>
+                                            <ComboBoxItem Content="Best Fit (Найкращий придатний)"/>
+                                            <ComboBoxItem Content="Worst Fit (Найгірший придатний)"/>
+                                        </ComboBox>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Margin="0,0,10,0">
+                                        <TextBlock Text="Назва процесу:" FontWeight="SemiBold" FontSize="12" Margin="0,0,0,4"/>
+                                        <TextBox x:Name="TxtMemProcName" Height="28" Text="P_App" VerticalContentAlignment="Center" Padding="4,0"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2" Margin="0,0,10,0">
+                                        <TextBlock Text="Розмір блоку (КБ):" FontWeight="SemiBold" FontSize="12" Margin="0,0,0,4"/>
+                                        <TextBox x:Name="TxtMemSize" Height="28" Text="120" VerticalContentAlignment="Center" Padding="4,0"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="3" VerticalAlignment="Center">
+                                        <TextBlock x:Name="TxtMemStatus" Text="Введіть параметри та натисніть «Виділити пам'ять»." FontSize="11" Foreground="{StaticResource PrimaryBlue}"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="4" Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Button Content="➕ Виділити пам'ять" Style="{StaticResource SuccessButton}" Margin="0,0,8,0" Click="OnAllocateMemory"/>
+                                        <Button Content="🔄 Скинути пам'ять" Style="{StaticResource SecondaryButton}" Click="OnResetMemory"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <!-- RAM Map Visual Bar -->
+                            <Border Grid.Row="1" Style="{StaticResource CardBorder}" Margin="0,0,0,10">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top" Text="Фізична карта оперативної пам'яті (RAM: 1024 КБ):" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextMain}" Margin="0,0,0,6"/>
+                                    <Canvas x:Name="CanvasRamMap" Height="65" Background="#E2E8F0"/>
+                                </DockPanel>
+                            </Border>
+
+                            <!-- Blocks Table -->
+                            <Border Grid.Row="2" Style="{StaticResource CardBorder}">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top" Text="Список блоків пам'яті та їх статус в адресному просторі:" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextMain}" Margin="0,0,0,6"/>
+                                    <DataGrid x:Name="GridMemoryBlocks" AutoGenerateColumns="False" IsReadOnly="True" Background="White" RowHeaderWidth="0" GridLinesVisibility="Horizontal" BorderBrush="#E2E8F0">
+                                        <DataGrid.Columns>
+                                            <DataGridTextColumn Header="Початкова адреса" Binding="{Binding StartAddress, StringFormat='0x{0:X4} ({0} KB)'}" Width="160"/>
+                                            <DataGridTextColumn Header="Розмір (КБ)" Binding="{Binding Size}" Width="120"/>
+                                            <DataGridTextColumn Header="Статус" Binding="{Binding ProcessName}" FontWeight="Bold" Width="140"/>
+                                            <DataGridCheckBoxColumn Header="Зайнято" Binding="{Binding IsAllocated}" Width="90"/>
+                                            <DataGridTemplateColumn Header="Дії" Width="120">
+                                                <DataGridTemplateColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <Button Content="Звільнити" Style="{StaticResource SecondaryButton}" Padding="8,2" FontSize="11" Click="OnFreeMemoryBlock" IsEnabled="{Binding IsAllocated}"/>
+                                                    </DataTemplate>
+                                                </DataGridTemplateColumn.CellTemplate>
+                                            </DataGridTemplateColumn>
+                                        </DataGrid.Columns>
+                                    </DataGrid>
+                                </DockPanel>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+
+                    <!-- SUBTAB 2.2: PAGE REPLACEMENT -->
+                    <TabItem Header="🔹 2.2. Заміщення сторінок віртуальної пам'яті (Paging)">
+                        <Grid Margin="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Border Grid.Row="0" Style="{StaticResource CardBorder}" Margin="0,0,0,10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="140"/>
+                                        <ColumnDefinition Width="160"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                                        <TextBlock Text="Послідовність звернень до сторінок (Reference String):" FontWeight="SemiBold" FontSize="12" Margin="0,0,0,4"/>
+                                        <TextBox x:Name="TxtRefString" Height="28" Text="7, 0, 1, 2, 0, 3, 0, 4, 2, 3, 0, 3, 2" VerticalContentAlignment="Center" Padding="4,0"/>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Margin="0,0,12,0">
+                                        <TextBlock Text="Кількість кадрів:" FontWeight="SemiBold" FontSize="12" Margin="0,0,0,4"/>
+                                        <ComboBox x:Name="CbFrameCount" Height="28" SelectedIndex="0">
+                                            <ComboBoxItem Content="3 кадри"/>
+                                            <ComboBoxItem Content="4 кадри"/>
+                                        </ComboBox>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="2" Margin="0,0,12,0">
+                                        <TextBlock Text="Алгоритм заміщення:" FontWeight="SemiBold" FontSize="12" Margin="0,0,0,4"/>
+                                        <ComboBox x:Name="CbPagingAlgo" Height="28" SelectedIndex="1">
+                                            <ComboBoxItem Content="FIFO"/>
+                                            <ComboBoxItem Content="LRU (Least Recently)"/>
+                                        </ComboBox>
+                                    </StackPanel>
+
+                                    <Button Grid.Column="3" Content="▶️ Розрахувати сторінковий обмін" Style="{StaticResource SuccessButton}" VerticalAlignment="Bottom" Click="OnRunPagingSimulation"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- Table of steps -->
+                            <Border Grid.Row="1" Style="{StaticResource CardBorder}">
+                                <DockPanel>
+                                    <TextBlock DockPanel.Dock="Top" Text="Покрокова таблиця заповнення сторінкових кадрів:" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextMain}" Margin="0,0,0,6"/>
+                                    <DataGrid x:Name="GridPagingSteps" AutoGenerateColumns="True" IsReadOnly="True" Background="White" RowHeaderWidth="0" GridLinesVisibility="All" BorderBrush="#E2E8F0"/>
+                                </DockPanel>
+                            </Border>
+
+                            <!-- Results Summary -->
+                            <Border Grid.Row="2" Style="{StaticResource CardBorder}" Margin="0,10,0,0" Background="#F8FAFC">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock Text="Помилки сторінок (Page Faults): " FontSize="13" Foreground="{StaticResource TextMuted}"/>
+                                    <TextBlock x:Name="TxtPageFaults" Text="9" FontWeight="Bold" FontSize="16" Foreground="#DC2626" Margin="0,0,24,0"/>
+
+                                    <TextBlock Text="Влучання в кеш (Hits): " FontSize="13" Foreground="{StaticResource TextMuted}"/>
+                                    <TextBlock x:Name="TxtHits" Text="4" FontWeight="Bold" FontSize="16" Foreground="{StaticResource AccentEmerald}" Margin="0,0,24,0"/>
+
+                                    <TextBlock Text="Коефіцієнт влучань (Hit Ratio): " FontSize="13" Foreground="{StaticResource TextMuted}"/>
+                                    <TextBlock x:Name="TxtHitRatio" Text="30.8 %" FontWeight="Bold" FontSize="16" Foreground="{StaticResource PrimaryBlue}"/>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+
+            <!-- TAB 3: DEADLOCKS & BANKER -->
+            <TabItem Header="🔒 3. Взаємні блокування (Deadlocks)">
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Top Description Card: Coffman Conditions -->
+                    <Border Grid.Row="0" Style="{StaticResource CardBorder}" Margin="0,0,0,10" Background="#FEF3C7" BorderBrush="#FDE68A">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0" Text="⚠️ 4 Умови Коффмана:" FontWeight="Bold" FontSize="13" Foreground="#92400E" VerticalAlignment="Center" Margin="0,0,14,0"/>
+                            <TextBlock Grid.Column="1" Text="1. Взаємне виключення (Mutual Exclusion) | 2. Утримання й очікування (Hold &amp; Wait) | 3. Відсутність витіснення (No Preemption) | 4. Кругове очікування (Circular Wait)" FontSize="11" Foreground="#78350F" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                                <Button Content="🔄 Завантажити приклад" Style="{StaticResource SecondaryButton}" Margin="0,0,8,0" Click="OnLoadBankerExample"/>
+                                <Button Content="🔍 Перевірити стан безпеки (Run Banker)" Style="{StaticResource SuccessButton}" Click="OnRunBankerAlgorithm"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+
+                    <!-- Main Grid Area: Available Vector & Allocation/Max/Need Matrices -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="380"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Matrices View -->
+                        <Border Grid.Column="0" Style="{StaticResource CardBorder}" Margin="0,0,10,0">
+                            <DockPanel>
+                                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,8">
+                                    <TextBlock Text="Матриці ресурсів системи (R = 3 типи ресурсів: A, B, C):" FontWeight="Bold" FontSize="13" Foreground="{StaticResource TextMain}"/>
+                                    <Border Background="#E0E7FF" CornerRadius="4" Padding="8,2" Margin="14,0,0,0">
+                                        <TextBlock x:Name="TxtAvailableVector" Text="Доступні ресурси (Available): A=3, B=3, C=2" FontWeight="Bold" FontSize="11" Foreground="{StaticResource PrimaryBlue}"/>
+                                    </Border>
+                                </StackPanel>
+                                <DataGrid x:Name="GridBankerProcesses" AutoGenerateColumns="False" IsReadOnly="True" Background="White" RowHeaderWidth="0" GridLinesVisibility="Horizontal" BorderBrush="#E2E8F0">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="Процес" Binding="{Binding Name}" FontWeight="Bold" Width="75"/>
+                                        <DataGridTextColumn Header="Allocation (A, B, C)" Binding="{Binding AllocationText}" Width="160"/>
+                                        <DataGridTextColumn Header="Max (A, B, C)" Binding="{Binding MaxText}" Width="150"/>
+                                        <DataGridTextColumn Header="Need (A, B, C) = Max - Alloc" Binding="{Binding NeedText}" FontWeight="Bold" Width="200"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </DockPanel>
+                        </Border>
+
+                        <!-- Safe Sequence & Log steps -->
+                        <Border Grid.Column="1" Style="{StaticResource CardBorder}">
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Top" Text="Журнал перевірки алгоритму Банкіра:" FontWeight="Bold" FontSize="13" Foreground="{StaticResource TextMain}" Margin="0,0,0,8"/>
+                                <TextBox x:Name="TxtBankerLog" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Background="#F8FAFC" FontFamily="Consolas" FontSize="11" Padding="8" BorderBrush="#E2E8F0"/>
+                            </DockPanel>
+                        </Border>
+                    </Grid>
+
+                    <!-- Safe Status Banner -->
+                    <Border Grid.Row="2" x:Name="BorderBankerStatus" Style="{StaticResource CardBorder}" Margin="0,10,0,0" Background="#DCFCE7" BorderBrush="#86EFAC">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock x:Name="TxtBankerStatusTitle" Text=" СИСТЕМА ПЕРЕБУВАЄ В БЕЗПЕЧНОМУ СТАНІ (SAFE STATE)!" FontWeight="Bold" FontSize="14" Foreground="#15803D" Margin="0,0,20,0"/>
+                            <TextBlock x:Name="TxtSafeSequence" Text="Безпечна черга (Safe Sequence): &lt; P1 → P3 → P4 → P0 → P2 &gt;" FontWeight="Bold" FontSize="14" Foreground="#166534"/>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 4: QUIZ & ECTS -->
+            <TabItem Header="📝 4. Комп'ютерний контроль знань (Quiz)">
+                <Grid Margin="0,10,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Border Grid.Row="0" Style="{StaticResource CardBorder}" Margin="0,0,0,10" Background="#EFF6FF" BorderBrush="#BFDBFE">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Grid.Column="0">
+                                <TextBlock Text="Тестування знань з будови та принципів функціонування операційних систем" FontWeight="Bold" FontSize="14" Foreground="{StaticResource PrimaryBlue}"/>
+                                <TextBlock Text="Оцінювання здійснюється за європейською кредитно-трансферною шкалою ECTS (A-F)" FontSize="11" Foreground="{StaticResource TextMuted}"/>
+                            </StackPanel>
+                            <Button Grid.Column="1" Content="🔄 Розпочати тест заново" Style="{StaticResource SecondaryButton}" Click="OnRestartQuiz"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Questions Container -->
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="PanelQuestionsContainer" Margin="0,0,10,0"/>
+                    </ScrollViewer>
+
+                    <!-- Footer Action & Result -->
+                    <Border Grid.Row="2" Style="{StaticResource CardBorder}" Margin="0,10,0,0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock x:Name="TxtQuizScore" Text="Результат: тест не завершено" FontWeight="Bold" FontSize="14" Foreground="{StaticResource TextMain}"/>
+                                <Border x:Name="BadgeEcts" Background="{StaticResource AccentEmerald}" CornerRadius="4" Padding="10,3" Margin="14,0,0,0" Visibility="Collapsed">
+                                    <TextBlock x:Name="TxtEctsGrade" Text="Оцінка: Відмінно (A)" FontWeight="Bold" FontSize="12" Foreground="White"/>
+                                </Border>
+                            </StackPanel>
+
+                            <Button Grid.Column="1" Content="✅ Завершити тестування та перевірити відповіді" Style="{StaticResource SuccessButton}" Click="OnSubmitQuiz"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </TabItem>
+
+            <!-- TAB 5: THEORY HANDBOOK -->
+            <TabItem Header="📖 5. Теоретичний довідник">
+                <Grid Margin="0,10,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="280"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Topics List -->
+                    <Border Grid.Column="0" Style="{StaticResource CardBorder}" Margin="0,0,10,0">
+                        <DockPanel>
+                            <TextBlock DockPanel.Dock="Top" Text="Розділи курсу «Операційні системи»:" FontWeight="Bold" FontSize="13" Foreground="{StaticResource TextMain}" Margin="0,0,0,8"/>
+                            <ListBox x:Name="ListTheoryTopics" SelectionChanged="OnTheoryTopicChanged" Background="White" BorderThickness="0">
+                                <ListBoxItem Content="1. Поняття процесу та диспетчеризація" IsSelected="True" Padding="8,6"/>
+                                <ListBoxItem Content="2. Алгоритми планування процесора (CPU)" Padding="8,6"/>
+                                <ListBoxItem Content="3. Організація оперативної пам'яті" Padding="8,6"/>
+                                <ListBoxItem Content="4. Віртуальна пам'ять та сторінковий обмін" Padding="8,6"/>
+                                <ListBoxItem Content="5. Взаємні блокування (Deadlocks) та Банкір" Padding="8,6"/>
+                                <ListBoxItem Content="6. Архітектура та стек технологій комплексу" Padding="8,6"/>
+                            </ListBox>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Theory Content -->
+                    <Border Grid.Column="1" Style="{StaticResource CardBorder}">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <StackPanel x:Name="PanelTheoryContent" Margin="10">
+                                <TextBlock x:Name="TxtTheoryTitle" Text="1. Поняття процесу та диспетчеризація" FontWeight="Bold" FontSize="16" Foreground="{StaticResource PrimaryBlue}" Margin="0,0,0,10"/>
+                                <TextBlock x:Name="TxtTheoryBody" FontSize="13" Foreground="{StaticResource TextMain}" TextWrapping="Wrap" LineHeight="22"/>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Border>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+        <!-- Status Bar -->
+        <Border Grid.Row="2" Background="{StaticResource NavyDark}" Padding="16,6">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="● Готово до роботи | ВСП «ФКІТ НУ Львівська політехніка» | Кафедра інженерії програмного забезпечення" FontSize="11" Foreground="#94A3B8"/>
+                <TextBlock Grid.Column="1" Text="Visual Studio 2022 | C# 12 | WPF .NET 10" FontSize="11" Foreground="#38BDF8" FontWeight="SemiBold"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
